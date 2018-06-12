@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace UmbracoToolkit.Models
+namespace UmbracoToolkit.ViewModels
 {
-    public class CmsContentBase : CmsDocumentBase
+    public class CmsContentBase : Models.CmsDocumentBase
     {
         /// <summary>
         /// Gets or sets the creator identifier.
