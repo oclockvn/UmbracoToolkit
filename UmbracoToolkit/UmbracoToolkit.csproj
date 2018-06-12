@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Models\CmsBreadcrumb.cs" />
     <Compile Include="Models\CmsMenu.cs" />
     <Compile Include="Models\CmsModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
