@@ -2,7 +2,7 @@
 
 namespace UmbracoToolkit.Models
 {
-    public class ModelBase
+    public class CmsModelBase
     {
         /// <summary>
         /// Gets or sets the identifier of document.
@@ -27,14 +27,6 @@ namespace UmbracoToolkit.Models
         /// The URL.
         /// </value>
         public string Url { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsActive { get; set; }
         
         /// <summary>
         /// Gets or sets the creator identifier.
