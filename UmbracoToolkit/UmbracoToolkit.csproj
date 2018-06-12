@@ -211,8 +211,10 @@
   <ItemGroup>
     <Compile Include="Controllers\CmsBaseController.cs" />
     <Compile Include="Extensions\CmsViewExtension.cs" />
+    <Compile Include="Extensions\CmsXPathExtension.cs" />
     <Compile Include="Extensions\MediaExtension.cs" />
     <Compile Include="Extensions\NodeExtension.cs" />
+    <Compile Include="Helpers\CmsXPath.cs" />
     <Compile Include="Models\CmsBreadcrumb.cs" />
     <Compile Include="ViewModels\CmsContentBase.cs" />
     <Compile Include="Models\CmsLanguage.cs" />
