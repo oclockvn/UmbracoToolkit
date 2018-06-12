@@ -209,6 +209,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CmsBaseController.cs" />
     <Compile Include="Extensions\CmsViewExtension.cs" />
     <Compile Include="Extensions\MediaExtension.cs" />
     <Compile Include="Extensions\NodeExtension.cs" />
