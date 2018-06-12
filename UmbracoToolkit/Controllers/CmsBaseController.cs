@@ -146,19 +146,22 @@ namespace UmbracoToolkit.Controllers
         /// <returns></returns>
         protected string MapViewPath(string viewName, string viewFolder)
         {
-            return $"Views/{viewFolder.TrimEnd('/')}/{EnsureNoViewExtension(viewName)}.cshtml";
+            return string.IsNullOrWhiteSpace(viewFolder) 
+                ? $"Views/{EnsureNoViewExtension(viewName)}.cshtml"
+                : $"Views/{viewFolder.TrimEnd('/')}/{EnsureNoViewExtension(viewName)}.cshtml";
         }
 
         /// <summary>
-        /// CMSs the partial.
+        /// return the partial with given folder and view name
         /// </summary>
         /// <param name="viewName">Name of the view.</param>
         /// <param name="model">The model.</param>
         /// <param name="viewFolder">The view folder.</param>
+        /// <param name="useSharedFolderIfNoSpecifyViewFolder">if set to <c>true</c> [use shared folder if no specify view folder].</param>
         /// <returns></returns>
-        protected ActionResult CmsPartial(string viewName, object model = null, string viewFolder = null)
+        protected ActionResult CmsPartial(string viewName, object model = null, string viewFolder = null, bool useSharedFolderIfNoSpecifyViewFolder = true)
         {
-            if (string.IsNullOrWhiteSpace(viewFolder))
+            if (string.IsNullOrWhiteSpace(viewFolder) && useSharedFolderIfNoSpecifyViewFolder)
                 viewFolder = "Shared";
 
             return model == null ? PartialView(MapViewPath(viewName, viewFolder)) : PartialView(MapViewPath(viewName, viewFolder), model);
