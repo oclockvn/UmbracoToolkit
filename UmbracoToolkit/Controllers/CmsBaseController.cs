@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -120,6 +122,46 @@ namespace UmbracoToolkit.Controllers
                     }).ToList()
                     ;
             }
+        }
+
+        /// <summary>
+        /// Ensures the no view extension.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">View name is not valid!</exception>
+        private string EnsureNoViewExtension(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new Exception("View name is not valid!");
+
+            return !name.EndsWith(".cshtml") ? name : name.Substring(0, name.Length - 7); // ".cshtml".Length == 7
+        }
+
+        /// <summary>
+        /// Maps the view path.
+        /// </summary>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="viewFolder">The view folder.</param>
+        /// <returns></returns>
+        protected string MapViewPath(string viewName, string viewFolder)
+        {
+            return $"Views/{viewFolder.TrimEnd('/')}/{EnsureNoViewExtension(viewName)}.cshtml";
+        }
+
+        /// <summary>
+        /// CMSs the partial.
+        /// </summary>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="viewFolder">The view folder.</param>
+        /// <returns></returns>
+        protected ActionResult CmsPartial(string viewName, object model = null, string viewFolder = null)
+        {
+            if (string.IsNullOrWhiteSpace(viewFolder))
+                viewFolder = "Shared";
+
+            return model == null ? PartialView(MapViewPath(viewName, viewFolder)) : PartialView(MapViewPath(viewName, viewFolder), model);
         }
     }
 }
