@@ -2,7 +2,11 @@
 
 namespace UmbracoToolkit.Models
 {
-    public class Menu : CmsModelBase
+    /// <summary>
+    /// Represent cms menu
+    /// </summary>
+    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
+    public class Menu : CmsDocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

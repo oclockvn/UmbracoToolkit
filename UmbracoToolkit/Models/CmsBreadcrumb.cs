@@ -2,7 +2,11 @@
 
 namespace UmbracoToolkit.Models
 {
-    public class CmsBreadcrumb : CmsModelBase
+    /// <summary>
+    /// Represent cms breadcrumb
+    /// </summary>
+    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
+    public class CmsBreadcrumb : CmsDocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is homepage.
@@ -18,7 +22,7 @@ namespace UmbracoToolkit.Models
         /// <value>
         /// The parts.
         /// </value>
-        public List<CmsModelBase> Parts { get; set; }
+        public List<CmsDocumentBase> Parts { get; set; }
 
         /// <summary>
         /// Gets or sets the current.
@@ -26,6 +30,6 @@ namespace UmbracoToolkit.Models
         /// <value>
         /// The current.
         /// </value>
-        public CmsModelBase Current { get; set; }
+        public CmsDocumentBase Current { get; set; }
     }
 }

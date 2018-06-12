@@ -210,8 +210,12 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Models\CmsBreadcrumb.cs" />
+    <Compile Include="Models\CmsContentBase.cs" />
+    <Compile Include="Models\CmsLanguage.cs" />
+    <Compile Include="Models\CmsLink.cs" />
+    <Compile Include="Models\CmsMedia.cs" />
     <Compile Include="Models\CmsMenu.cs" />
-    <Compile Include="Models\CmsModelBase.cs" />
+    <Compile Include="Models\CmsDocumentBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
