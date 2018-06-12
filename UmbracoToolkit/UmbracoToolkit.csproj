@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Extensions\MediaExtension.cs" />
     <Compile Include="Extensions\NodeExtension.cs" />
     <Compile Include="Models\CmsBreadcrumb.cs" />
     <Compile Include="ViewModels\CmsContentBase.cs" />
