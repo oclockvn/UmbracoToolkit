@@ -39,6 +39,13 @@ namespace UmbracoToolkit.Controllers
         public IPublishedContent HomeNode => _homeNode ?? (_homeNode = CurrentPage.GetHomeNode(HomeDocumentTypeAlias));
 
         /// <summary>
+        /// Gets the home node.
+        /// </summary>
+        /// <param name="currentPageId">The current page identifier.</param>
+        /// <returns></returns>
+        public IPublishedContent GetHomeNode(int currentPageId) => _homeNode ?? (_homeNode = Umbraco.GetHomeNode(currentPageId, HomeDocumentTypeAlias));
+
+        /// <summary>
         /// Gets the menu items.
         /// </summary>
         /// <param name="node">The node.</param>
@@ -69,12 +76,12 @@ namespace UmbracoToolkit.Controllers
         /// <summary>
         /// Gets the main menu.
         /// </summary>
-        /// <param name="maxDepth">The maximum depth. Default is 3 level.</param>
+        /// <param name="maxDepth">The maximum depth. Default is 2 level.</param>
         /// <returns>A list of type <see cref="CmsMenu"/></returns>
         /// <value>
         /// The main menu.
         /// </value>
-        public List<CmsMenu> GetMainMenu(int maxDepth = 3) => GetMenuItems(HomeNode, maxDepth);
+        public List<CmsMenu> GetMainMenu(int maxDepth = 2) => GetMenuItems(HomeNode, maxDepth);
 
         /// <summary>
         /// Gets the breadcrumb.
@@ -86,17 +93,19 @@ namespace UmbracoToolkit.Controllers
         {
             get
             {
+                var homeNodeId = HomeNode.Id;
                 return new CmsBreadcrumb
                 {
-                    IsHomepage = CurrentPage.Id == HomeNode.Id,
-                    Current = new CmsDocumentBase { Name = CurrentPage.Name },
+                    //IsHomepage = CurrentPage.Id == HomeNode.Id,
+                    Current = new CmsBreadcrumbItem { Name = CurrentPage.Name },
                     Parts = CurrentPage
                         ?.Ancestors()
                         ?.OrderBy(x => x.Level)
-                        .Select(x => new CmsDocumentBase
+                        .Select(x => new CmsBreadcrumbItem
                         {
                             Name = x.Name,
-                            Url = x.Url
+                            Url = x.Url,
+                            IsHomepage = x.Id == homeNodeId
                         }).ToList()
                 };
             }
@@ -112,13 +121,14 @@ namespace UmbracoToolkit.Controllers
         {
             get
             {
+                var homeNodeId = HomeNode.Id;
                 return Umbraco
                     .TypedContentAtRoot()
                     ?.Select(x => new CmsLanguage
                     {
                         Name = x.Name,
                         Url = x.Url,
-                        IsActive = !string.IsNullOrWhiteSpace(HomeNode.Id + string.Empty) && x.Path.Contains(HomeNode.Id + string.Empty)
+                        IsActive = !string.IsNullOrWhiteSpace(homeNodeId + string.Empty) && x.Path.Contains(homeNodeId + string.Empty)
                     }).ToList()
                     ;
             }

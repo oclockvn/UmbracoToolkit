@@ -6,9 +6,4 @@
 
         public static CmsXPath Begin => new CmsXPath();
     }
-
-    public class CmsXPathPredicater
-    {
-        public string Predicate { get; set; }
-    }
 }

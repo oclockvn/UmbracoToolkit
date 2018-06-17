@@ -4,11 +4,11 @@ namespace UmbracoToolkit.Extensions
 {
     public static class CmsXPathExtension
     {
-        public static CmsXPath WithRoot(this CmsXPath xpath)
-        {
-            xpath.XPath = "/";
-            return xpath;
-        }
+        //public static CmsXPath WithRoot(this CmsXPath xpath)
+        //{
+        //    xpath.XPath = "/";
+        //    return xpath;
+        //}
 
         public static CmsXPath WithChild(this CmsXPath xpath, string child)
         {
@@ -21,6 +21,12 @@ namespace UmbracoToolkit.Extensions
         {
             xpath.XPath += "//" + descendant;
 
+            return xpath;
+        }
+
+        public static CmsXPath Where(this CmsXPath xpath, string condition)
+        {
+            xpath.XPath = xpath.XPath.TrimEnd() + " [" + condition.Trim('[', ']').Trim() + "]";
             return xpath;
         }
     }
