@@ -34,7 +34,7 @@ namespace UmbracoToolkit.Extensions
         {
             if (node == null || string.IsNullOrWhiteSpace(propertyName))
                 throw new NullReferenceException("Node content not found");
-
+            
             var media = node.GetPropertyValue<ImageCropDataSet>(propertyName);
             if (media == null)
             {

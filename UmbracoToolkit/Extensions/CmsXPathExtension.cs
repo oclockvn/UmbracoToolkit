@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UmbracoToolkit.Helpers;
+﻿using UmbracoToolkit.Helpers;
 
 namespace UmbracoToolkit.Extensions
 {
@@ -15,9 +10,16 @@ namespace UmbracoToolkit.Extensions
             return xpath;
         }
 
-        public static CmsXPath WithChild(this CmsXPath xpath, string child, string where = null)
+        public static CmsXPath WithChild(this CmsXPath xpath, string child)
         {
-            xpath.XPath += child;
+            xpath.XPath += "/" + child;
+
+            return xpath;
+        }
+
+        public static CmsXPath WithDescendant(this CmsXPath xpath, string descendant)
+        {
+            xpath.XPath += "//" + descendant;
 
             return xpath;
         }

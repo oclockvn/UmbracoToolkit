@@ -18,6 +18,15 @@ namespace UmbracoToolkit.Extensions
         public static IPublishedContent GetHomeNode(this IPublishedContent currentPage, string homeAlias) => currentPage?.Site()?.DescendantOrSelf(homeAlias);
 
         /// <summary>
+        /// Gets the home node.
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="currentPageId">The current page identifier.</param>
+        /// <param name="homeAlias">The home alias.</param>
+        /// <returns></returns>
+        public static IPublishedContent GetHomeNode(this UmbracoHelper helper, int currentPageId, string homeAlias) => GetHomeNode(helper.TypedContent(currentPageId), homeAlias);
+
+        /// <summary>
         /// Gets the related links.
         /// </summary>
         /// <param name="node">The node.</param>

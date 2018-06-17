@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UmbracoToolkit.Models
+﻿namespace UmbracoToolkit.Models
 {
     public class CmsDocumentBase
     {
