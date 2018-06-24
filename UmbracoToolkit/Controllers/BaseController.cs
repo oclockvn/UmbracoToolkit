@@ -157,8 +157,8 @@ namespace UmbracoToolkit.Controllers
         protected string MapViewPath(string viewName, string viewFolder)
         {
             return string.IsNullOrWhiteSpace(viewFolder) 
-                ? $"Views/{EnsureNoViewExtension(viewName)}.cshtml"
-                : $"Views/{viewFolder.TrimEnd('/')}/{EnsureNoViewExtension(viewName)}.cshtml";
+                ? $"~/Views/{EnsureNoViewExtension(viewName)}.cshtml"
+                : $"~/Views/{viewFolder.TrimEnd('/')}/{EnsureNoViewExtension(viewName)}.cshtml";
         }
 
         /// <summary>
