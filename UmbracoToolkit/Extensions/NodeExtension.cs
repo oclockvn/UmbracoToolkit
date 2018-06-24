@@ -32,7 +32,7 @@ namespace UmbracoToolkit.Extensions
         /// <param name="node">The node.</param>
         /// <param name="relatedLinkPropertyName">Name of the related link property.</param>
         /// <returns></returns>
-        public static IEnumerable<CmsLink> GetRelatedLinks(this IPublishedContent node, string relatedLinkPropertyName)
+        public static IEnumerable<Link> GetRelatedLinks(this IPublishedContent node, string relatedLinkPropertyName)
         {
             if (node == null || string.IsNullOrWhiteSpace(relatedLinkPropertyName))
                 return null;
@@ -41,7 +41,7 @@ namespace UmbracoToolkit.Extensions
             if (relatedLinks == null || !relatedLinks.Any())
                 return null;
 
-            return relatedLinks.Select(x => new CmsLink
+            return relatedLinks.Select(x => new Link
             {
                 Url = x.Link,
                 Name = x.Caption,

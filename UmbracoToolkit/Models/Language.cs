@@ -3,8 +3,8 @@
     /// <summary>
     /// Represent content node at root
     /// </summary>
-    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
-    public class CmsLanguage : CmsDocumentBase
+    /// <seealso cref="DocumentBase" />
+    public class Language : DocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

@@ -5,8 +5,8 @@ namespace UmbracoToolkit.Models
     /// <summary>
     /// Represent cms menu
     /// </summary>
-    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
-    public class CmsMenu : CmsDocumentBase
+    /// <seealso cref="DocumentBase" />
+    public class Menu : DocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -22,7 +22,7 @@ namespace UmbracoToolkit.Models
         /// <value>
         /// The sub menu.
         /// </value>
-        public List<CmsMenu> Chilren { get; set; }
+        public List<Menu> Chilren { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance has child.

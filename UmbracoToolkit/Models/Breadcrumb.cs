@@ -5,8 +5,8 @@ namespace UmbracoToolkit.Models
     /// <summary>
     /// Represent cms breadcrumb
     /// </summary>
-    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
-    public class CmsBreadcrumb
+    /// <seealso cref="DocumentBase" />
+    public class Breadcrumb
     {
         /// <summary>
         /// Gets or sets the parts.
@@ -25,7 +25,7 @@ namespace UmbracoToolkit.Models
         public CmsBreadcrumbItem Current { get; set; }
     }
 
-    public class CmsBreadcrumbItem : CmsDocumentBase
+    public class CmsBreadcrumbItem : DocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is homepage.

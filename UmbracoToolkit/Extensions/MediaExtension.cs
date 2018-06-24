@@ -15,7 +15,7 @@ namespace UmbracoToolkit.Extensions
         /// <param name="cropAlias">The cropAlias.</param>
         /// <param name="noimage">Fallback image in case crop image not found.</param>
         /// <returns></returns>
-        public static Models.CmsMedia GetCroppedMedia(this IPublishedContent node, string propertyName, string cropAlias, string noimage)
+        public static Models.Media GetCroppedMedia(this IPublishedContent node, string propertyName, string cropAlias, string noimage)
             => GetCroppedMedia(node, propertyName, cropAlias, noimage, string.Empty, string.Empty);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace UmbracoToolkit.Extensions
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns></returns>
-        public static Models.CmsMedia GetCroppedMedia(this IPublishedContent node, string propertyName, string cropAlias, string noimage, string alt, string altPropertyName, int width = 0, int height = 0)
+        public static Models.Media GetCroppedMedia(this IPublishedContent node, string propertyName, string cropAlias, string noimage, string alt, string altPropertyName, int width = 0, int height = 0)
         {
             if (node == null || string.IsNullOrWhiteSpace(propertyName))
                 throw new NullReferenceException("Node content not found");
@@ -38,7 +38,7 @@ namespace UmbracoToolkit.Extensions
             var media = node.GetPropertyValue<ImageCropDataSet>(propertyName);
             if (media == null)
             {
-                return new Models.CmsMedia
+                return new Models.Media
                 {
                     Url = noimage,
                     Alt = alt,
@@ -47,7 +47,7 @@ namespace UmbracoToolkit.Extensions
                 };
             }
 
-            return new Models.CmsMedia
+            return new Models.Media
             {
                 Url = media.Src + (string.IsNullOrWhiteSpace(cropAlias) ? string.Empty : media.GetCropUrl(cropAlias)),
                 Alt = string.IsNullOrWhiteSpace(alt) ? node.GetPropertyValue<string>(altPropertyName) ?? string.Empty : alt,
@@ -64,15 +64,15 @@ namespace UmbracoToolkit.Extensions
         /// <param name="helper">The helper.</param>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        public static Models.CmsMedia GetUploadedFile(this IPublishedContent node, UmbracoHelper helper, string propertyName)
+        public static Models.Media GetUploadedFile(this IPublishedContent node, UmbracoHelper helper, string propertyName)
         {
             if (node == null)
-                return new Models.CmsMedia();
+                return new Models.Media();
 
             var uploadId = node.GetPropertyValue<int>(propertyName);
             var uploadFile = helper.TypedMedia(uploadId);
 
-            return new Models.CmsMedia
+            return new Models.Media
             {
                 Url = uploadFile?.Url,
                 Alt = string.Empty,

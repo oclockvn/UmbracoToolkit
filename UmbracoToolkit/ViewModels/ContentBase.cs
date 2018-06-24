@@ -2,7 +2,7 @@
 
 namespace UmbracoToolkit.ViewModels
 {
-    public class CmsContentBase : Models.CmsDocumentBase
+    public class ContentBase : Models.DocumentBase
     {
         /// <summary>
         /// Gets or sets the creator identifier.

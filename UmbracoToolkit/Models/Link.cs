@@ -3,8 +3,8 @@
     /// <summary>
     /// Represent cms related link
     /// </summary>
-    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
-    public class CmsLink : CmsDocumentBase
+    /// <seealso cref="DocumentBase" />
+    public class Link : DocumentBase
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is new window.

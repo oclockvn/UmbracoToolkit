@@ -1,6 +1,6 @@
 ﻿namespace UmbracoToolkit.Models
 {
-    public class CmsDocumentBase
+    public class DocumentBase
     {
         /// <summary>
         /// Gets or sets the identifier of document.

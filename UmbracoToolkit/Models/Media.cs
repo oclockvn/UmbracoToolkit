@@ -3,8 +3,8 @@
     /// <summary>
     /// Represent an image cropper or an upload file
     /// </summary>
-    /// <seealso cref="UmbracoToolkit.Models.CmsDocumentBase" />
-    public class CmsMedia : CmsDocumentBase
+    /// <seealso cref="DocumentBase" />
+    public class Media : DocumentBase
     {
         /// <summary>
         /// Gets or sets the alt.

@@ -10,7 +10,7 @@ using UmbracoToolkit.Models;
 
 namespace UmbracoToolkit.Controllers
 {
-    public class CmsBaseController : SurfaceController
+    public class BaseController : SurfaceController
     {
         private IPublishedContent _homeNode;
 
@@ -51,8 +51,8 @@ namespace UmbracoToolkit.Controllers
         /// <param name="node">The node.</param>
         /// <param name="menuLevel">The menu level.</param>
         /// <param name="level">The level.</param>
-        /// <returns>A list of type <see cref="CmsMenu"/></returns>
-        private List<CmsMenu> GetMenuItems(IPublishedContent node, int menuLevel, int level = 0)
+        /// <returns>A list of type <see cref="Menu"/></returns>
+        private List<Menu> GetMenuItems(IPublishedContent node, int menuLevel, int level = 0)
         {
             if (level > menuLevel)
                 return null;
@@ -61,7 +61,7 @@ namespace UmbracoToolkit.Controllers
 
             return node
                 ?.Children(x => x.IsVisible())
-                ?.Select(x => new CmsMenu
+                ?.Select(x => new Menu
                 {
                     Name = x.Name,
                     Id = x.Id,
@@ -77,11 +77,11 @@ namespace UmbracoToolkit.Controllers
         /// Gets the main menu.
         /// </summary>
         /// <param name="maxDepth">The maximum depth. Default is 2 level.</param>
-        /// <returns>A list of type <see cref="CmsMenu"/></returns>
+        /// <returns>A list of type <see cref="Menu"/></returns>
         /// <value>
         /// The main menu.
         /// </value>
-        public List<CmsMenu> GetMainMenu(int maxDepth = 2) => GetMenuItems(HomeNode, maxDepth);
+        public List<Menu> GetMainMenu(int maxDepth = 2) => GetMenuItems(HomeNode, maxDepth);
 
         /// <summary>
         /// Gets the breadcrumb.
@@ -89,12 +89,12 @@ namespace UmbracoToolkit.Controllers
         /// <value>
         /// The breadcrumb.
         /// </value>
-        public virtual CmsBreadcrumb Breadcrumb
+        public virtual Breadcrumb Breadcrumb
         {
             get
             {
                 var homeNodeId = HomeNode.Id;
-                return new CmsBreadcrumb
+                return new Breadcrumb
                 {
                     //IsHomepage = CurrentPage.Id == HomeNode.Id,
                     Current = new CmsBreadcrumbItem { Name = CurrentPage.Name },
@@ -117,14 +117,14 @@ namespace UmbracoToolkit.Controllers
         /// <value>
         /// The languages.
         /// </value>
-        public virtual List<CmsLanguage> Languages
+        public virtual List<Models.Language> Languages
         {
             get
             {
                 var homeNodeId = HomeNode.Id;
                 return Umbraco
                     .TypedContentAtRoot()
-                    ?.Select(x => new CmsLanguage
+                    ?.Select(x => new Models.Language
                     {
                         Name = x.Name,
                         Url = x.Url,

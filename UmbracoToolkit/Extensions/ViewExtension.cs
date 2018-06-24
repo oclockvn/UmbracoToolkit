@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace UmbracoToolkit.Extensions
 {
-    public static class CmsViewExtension
+    public static class ViewExtension
     {
         /// <summary>
         /// Time ago html helper.
