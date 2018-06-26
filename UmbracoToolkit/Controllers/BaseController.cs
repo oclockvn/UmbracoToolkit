@@ -36,7 +36,7 @@ namespace UmbracoToolkit.Controllers
         /// <value>
         /// The home node.
         /// </value>
-        public IPublishedContent HomeNode => _homeNode ?? (_homeNode = CurrentPage.GetHomeNode(HomeDocumentTypeAlias));
+        public IPublishedContent HomeNode => _homeNode ?? (_homeNode = CurrentPage?.GetHomeNode(HomeDocumentTypeAlias));
 
         /// <summary>
         /// Gets the home node.
@@ -52,12 +52,13 @@ namespace UmbracoToolkit.Controllers
         /// <param name="menuLevel">The menu level.</param>
         /// <param name="level">The level.</param>
         /// <returns>A list of type <see cref="Menu"/></returns>
-        private List<Menu> GetMenuItems(IPublishedContent node, int menuLevel, int level = 0)
+        private List<Menu> GetMenuItems(IPublishedContent node, int menuLevel, int level = 0, int? currentPageId = null)
         {
             if (level > menuLevel)
                 return null;
             
             var currentLevel = level + 1;
+            //var currentPage = currentPageId.HasValue && currentPageId > 0 ? Umbraco.TypedContent(currentPageId) : CurrentPage;
 
             return node
                 ?.Children(x => x.IsVisible())
@@ -65,7 +66,7 @@ namespace UmbracoToolkit.Controllers
                 {
                     Name = x.Name,
                     Id = x.Id,
-                    IsActive = x.IsAncestorOrSelf(CurrentPage),
+                    IsActive = CurrentPage != null && x.IsAncestorOrSelf(CurrentPage),
                     Url = x.Url,
                     Chilren = x.GetPropertyValue<bool>(ShowSubMenuAlias) ? GetMenuItems(x, menuLevel, currentLevel) : null
                 })
@@ -77,11 +78,14 @@ namespace UmbracoToolkit.Controllers
         /// Gets the main menu.
         /// </summary>
         /// <param name="maxDepth">The maximum depth. Default is 2 level.</param>
-        /// <returns>A list of type <see cref="Menu"/></returns>
+        /// <param name="currentPageId">The current page identifier.</param>
+        /// <returns>
+        /// A list of type <see cref="Menu" />
+        /// </returns>
         /// <value>
         /// The main menu.
         /// </value>
-        public List<Menu> GetMainMenu(int maxDepth = 2) => GetMenuItems(HomeNode, maxDepth);
+        public List<Menu> GetMainMenu(int maxDepth = 2, int? currentPageId = null) => GetMenuItems(currentPageId.HasValue ? GetHomeNode(currentPageId.Value) : HomeNode, maxDepth, 0, currentPageId);
 
         /// <summary>
         /// Gets the breadcrumb.
