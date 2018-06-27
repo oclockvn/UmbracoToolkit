@@ -51,6 +51,45 @@ namespace UmbracoToolkit.Extensions
             });
         }
 
+        ///// <summary>
+        ///// Selects the navigator.
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="context">The context.</param>
+        ///// <param name="xpath">The xpath.</param>
+        ///// <param name="select">The select.</param>
+        ///// <param name="skip">The skip.</param>
+        ///// <param name="take">The take.</param>
+        ///// <param name="orderBy">The order by.</param>
+        ///// <returns></returns>
+        //public static List<T> SelectNavigator<T>(this UmbracoContext context,
+        //    string xpath,
+        //    Func<XPathNavigator, T> select,
+        //    int? skip = 0,
+        //    int? take = int.MaxValue,
+        //    Tuple<bool, Func<XPathNavigator, object>> orderBy = null)
+        //{
+        //    var navigator = context.ContentCache.GetXPathNavigator();
+        //    var orderedNodes = navigator.Select(xpath)
+        //        .Cast<XPathNavigator>()
+        //        .OrderBy(x => true);
+
+        //    if (orderBy != null)
+        //    {
+        //        var order = new Func<XPathNavigator, object>(orderBy.Item2);
+        //        var asc = orderBy.Item1;
+
+        //        orderedNodes = asc ? orderedNodes.OrderBy(order) : orderedNodes.OrderByDescending(order);
+        //    }
+
+        //    var nodes = orderedNodes
+        //        .Skip(skip ?? 0)
+        //        .Take(take ?? int.MaxValue)
+        //        .Select(select);
+
+        //    return nodes.ToList();
+        //}
+
         /// <summary>
         /// Selects the navigator.
         /// </summary>
@@ -58,23 +97,42 @@ namespace UmbracoToolkit.Extensions
         /// <param name="context">The context.</param>
         /// <param name="xpath">The xpath.</param>
         /// <param name="select">The select.</param>
-        /// <param name="orderBy">The order by.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
+        /// <param name="orderBys">The order bys.</param>
         /// <returns></returns>
         public static List<T> SelectNavigator<T>(this UmbracoContext context,
             string xpath,
             Func<XPathNavigator, T> select,
-            Func<XPathNavigator, object> orderBy = null,
             int? skip = 0,
-            int? take = int.MaxValue
-            )
+            int? take = int.MaxValue,
+            params Tuple<bool, Func<XPathNavigator, object>>[] orderBys)
         {
             var navigator = context.ContentCache.GetXPathNavigator();
-            var nodes = navigator.Select(xpath)
+            var orderedNodes = navigator.Select(xpath)
                 .Cast<XPathNavigator>()
-                .OrderByDescending(orderBy ?? (x => true))
-                .Skip(skip ?? 0)
+                .OrderByDescending(x => true);
+
+            if (orderBys?.Length > 0)
+            {
+                var order = new Func<XPathNavigator, object>(orderBys[0].Item2);
+                var asc = orderBys[0].Item1;
+
+                orderedNodes = asc ? orderedNodes.OrderBy(order) : orderedNodes.OrderByDescending(order);
+            }
+
+            if (orderBys?.Length > 1)
+            {
+                foreach (var orderBy in orderBys.Skip(1))
+                {
+                    var order = new Func<XPathNavigator, object>(orderBy.Item2);
+                    var asc = orderBy.Item1;
+
+                    orderedNodes = asc ? orderedNodes.ThenBy(order) : orderedNodes.ThenByDescending(order);
+                }
+            }
+
+            var nodes = orderedNodes.Skip(skip ?? 0)
                 .Take(take ?? int.MaxValue)
                 .Select(select);
 
