@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Extensions\PagingExtension.cs" />
     <Compile Include="Extensions\ViewExtension.cs" />
     <Compile Include="Extensions\CmsXPathExtension.cs" />
     <Compile Include="Extensions\MediaExtension.cs" />
